@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 
 class AddPost extends StatefulWidget {
+  static const id = '/add';
   @override
   _AddPostState createState() => _AddPostState();
 }

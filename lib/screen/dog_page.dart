@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+
 
 
 class DogPage extends StatefulWidget {
+  static const id = '/dog';
+
+  final String ids;
+
+  DogPage({ @required this.ids});
+
   @override
   _DogPageState createState() => _DogPageState();
 }
@@ -11,7 +17,7 @@ class _DogPageState extends State<DogPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("osaca"),),
+      appBar: AppBar(title: Text("osca"),),
      body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
