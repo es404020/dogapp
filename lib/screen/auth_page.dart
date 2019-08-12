@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:dogapp/screen/main.dart';
 class Auth extends StatefulWidget {
+  static const id = '/auth';
   @override
   _AuthState createState() => _AuthState();
 }
@@ -20,7 +22,9 @@ class _AuthState extends State<Auth> {
               child: RaisedButton(
                 child: Text("Google",style: TextStyle(color: Colors.white),),
                 color: Colors.red,
-                onPressed: (){},
+                onPressed: (){
+                  Navigator.of(context).pushReplacementNamed(DogPages.id);
+                },
               ),
             )
           ],

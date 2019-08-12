@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dogapp/screen/main.dart';
+import 'package:dogapp/rout/rout.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,16 +18,15 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    initialRoute: '/',
+      onGenerateRoute:Router.generateRoute,
+
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-
-  final String title;
+  static const id = '/';
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
