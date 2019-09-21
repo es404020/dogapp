@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dogapp/screen/main.dart';
+import 'package:dogapp/service/auth.dart';
 class Auth extends StatefulWidget {
   static const id = '/auth';
   @override
@@ -7,6 +8,8 @@ class Auth extends StatefulWidget {
 }
 
 class _AuthState extends State<Auth> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +26,8 @@ class _AuthState extends State<Auth> {
                 child: Text("Google",style: TextStyle(color: Colors.white),),
                 color: Colors.red,
                 onPressed: (){
-                  Navigator.of(context).pushReplacementNamed(DogPages.id);
+                AuthService().handleSignIn();
+                 // Navigator.of(context).pushReplacementNamed(DogPages.id);
                 },
               ),
             )
