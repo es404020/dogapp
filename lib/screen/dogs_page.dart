@@ -12,6 +12,15 @@ class _DogPagesState extends State<DogPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Add your onPressed code here!
+          Navigator.of(context).pushNamed(AddPost.id);
+        },
+        label: Text('Dog'),
+        icon: Icon(Icons.add_circle),
+
+      ),
       appBar: AppBar(centerTitle: true,backgroundColor: Colors.blue,title: Text("dogapp"),),
       body: SingleChildScrollView(
         child: Container(
