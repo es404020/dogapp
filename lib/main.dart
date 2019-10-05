@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     var user = Provider.of<FirebaseUser>(context);
-    print(user?.email);
+
 
     return user?.uid==null?Auth(): DogPages();
   }
