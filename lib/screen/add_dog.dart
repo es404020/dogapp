@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dogapp/classes/main.dart';
+import 'package:provider/provider.dart';
 
 
 class AddPost extends StatefulWidget {
@@ -15,6 +17,9 @@ class _AddPostState extends State<AddPost> {
   final dog_url  = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<FirebaseUser>(context);
+
+
     
     return Scaffold(
       appBar: AppBar(
@@ -76,7 +81,7 @@ class _AddPostState extends State<AddPost> {
 
              }
              else{
-         var dog =    Dog(dog: name.text,dog_url: dog_url.text,description: description.text);
+         var dog =    Dog(dog: name.text,dog_url: dog_url.text,description: description.text,postid: '',email: user?.email);
 
 
 
