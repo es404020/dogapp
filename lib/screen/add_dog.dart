@@ -18,7 +18,7 @@ class _AddPostState extends State<AddPost> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<FirebaseUser>(context);
-
+//user
 
     
     return Scaffold(
