@@ -1,7 +1,9 @@
+import 'package:dogapp/ui/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dogapp/classes/main.dart';
 import 'package:provider/provider.dart';
+import 'package:dogapp/service/main.dart';
 
 
 class AddPost extends StatefulWidget {
@@ -15,6 +17,9 @@ class _AddPostState extends State<AddPost> {
   final name = TextEditingController();
   final description = TextEditingController();
   final dog_url  = TextEditingController();
+  DogService dogservices = new DogService();
+
+
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<FirebaseUser>(context);
@@ -68,21 +73,24 @@ class _AddPostState extends State<AddPost> {
               onPressed: () {
              if(name.text == '' || description.text =='' || dog_url.text=='' ){
 
-                showDialog(
-                 context: context,
-                 builder: (context) {
-                   return AlertDialog(
-                     // Retrieve the text the user has entered by using the
-                     // TextEditingController.
-                     content: Text('Some field are empty'),
-                   );
-                 },
-               );
-
+AlertManger(context, "Incomplete input");
              }
              else{
          var dog =    Dog(dog: name.text,dog_url: dog_url.text,description: description.text,postid: '',email: user?.email);
+           dogservices.addDog(dog).then((res)=>{
 
+             AlertManger(context, "Dog was added"),
+             name.text='',description.text='',dog_url.text=''
+
+
+
+           }).catchError((err)=>{
+
+
+           AlertManger(context, "Something went wrong")
+
+
+           });
 
 
              }
@@ -99,4 +107,6 @@ class _AddPostState extends State<AddPost> {
       ),
     );
   }
+
+
 }
