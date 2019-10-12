@@ -23,7 +23,7 @@ class _AddPostState extends State<AddPost> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<FirebaseUser>(context);
-//user
+
 
     
     return Scaffold(
@@ -76,7 +76,7 @@ class _AddPostState extends State<AddPost> {
 AlertManger(context, "Incomplete input");
              }
              else{
-         var dog =    Dog(dog: name.text,dog_url: dog_url.text,description: description.text,postid: '',email: user?.email);
+         var dog =    Dog(dog: name.text,dog_ur: dog_url.text,description: description.text,postid: '',email: user?.email);
            dogservices.addDog(dog).then((res)=>{
 
              AlertManger(context, "Dog was added"),
