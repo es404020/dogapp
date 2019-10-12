@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dogapp/classes/dog.dart';
 import 'package:flutter/material.dart';
 import 'package:dogapp/screen/main.dart';
 
@@ -22,18 +24,37 @@ class _DogPagesState extends State<DogPages> {
 
       ),
       appBar: AppBar(centerTitle: true,backgroundColor: Colors.blue,title: Text("dogapp"),),
-      body: SingleChildScrollView(
-        child: Container(
-          child: ListTile(
-            title: Text("owners name"),
-        leading:CircleAvatar(backgroundImage: NetworkImage("https://firebasestorage.googleapis.com/v0/b/chivel-9fd0b.appspot.com/o/WhatsApp%20Image%202019-07-30%20at%209.13.57%20AM.jpeg?alt=media&token=90d1d08c-684c-4862-bab6-777da4355ce9",),),
-        subtitle: Text("GANAND SHEPIELD"),
-            onTap: (){
-              Navigator.of(context).pushNamed(DogPage.id,arguments: "123456");
-            },
-    )
-        ),
-      ),
+      body: StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance.collection('dog').snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError)
+            return new Text('Error: ${snapshot.error}');
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return new Text('Loading...');
+            default:
+              return ListView(
+
+                children: snapshot.data.documents.map((DocumentSnapshot document){
+
+                  Dog dog = new Dog.fromJson(document.data);
+
+               return ListTile(
+                  title: Text(dog.email),
+                  leading: CircleAvatar(backgroundImage: NetworkImage(dog.dog_ur,),),
+                  subtitle: Text(dog.dog),
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                        DogPage.id, arguments: "123456");
+                  },
+                );
+        }).toList()
+              );
+          }
+        }
+      )
+
+
     );
   }
 }
