@@ -41,6 +41,20 @@ class  DogService{
   }
 
 
+Future deleteDog(String ID) async{
+
+    try{
+
+      final result = Firestore.instance.collection("dog").document(ID).delete();
+
+    }catch(err){
+
+      throw err;
+
+    }
+}
+
+
 
 
 

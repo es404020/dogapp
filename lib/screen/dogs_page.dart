@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dogapp/classes/dog.dart';
+import 'package:dogapp/service/main.dart';
+import 'package:dogapp/ui/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dogapp/screen/main.dart';
-
+import 'package:provider/provider.dart';
 class DogPages extends StatefulWidget {
   static const id = '/dogs';
 
@@ -13,6 +16,10 @@ class DogPages extends StatefulWidget {
 class _DogPagesState extends State<DogPages> {
   @override
   Widget build(BuildContext context) {
+
+    var user = Provider.of<FirebaseUser>(context);
+
+    DogService service  = new DogService();
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -41,6 +48,22 @@ class _DogPagesState extends State<DogPages> {
 
                return ListTile(
                   title: Text(dog.email),
+                  trailing: dog.email == user?.email?
+                  InkWell(
+                    onTap: (){
+                      service.deleteDog(dog.postid).then((res){
+
+                        AlertManger(context, "Information removed");
+
+                      }).catchError((err)=>{
+
+                        AlertManger(context, "Hoops , Something went wrong")
+
+                      });
+                    },
+                    child: Icon(Icons.delete),
+                  ):
+                  Icon(Icons.forward),
                   leading: CircleAvatar(backgroundImage: NetworkImage(dog.dog_ur,),),
                   subtitle: Text(dog.dog),
                   onTap: () {
