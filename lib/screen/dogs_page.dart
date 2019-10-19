@@ -68,7 +68,7 @@ class _DogPagesState extends State<DogPages> {
                   subtitle: Text(dog.dog),
                   onTap: () {
                     Navigator.of(context).pushNamed(
-                        DogPage.id, arguments: "123456");
+                        DogPage.id, arguments: dog.postid);
                   },
                 );
         }).toList()
