@@ -31,6 +31,7 @@ dependencies:
   firebase_core: ^0.4.0+9
   firebase_storage: ^3.0.6
   modal_progress_hud: ^0.1.3
+  firebase_messaging:
 dev_dependencies:
   flutter_test:
     sdk: flutter

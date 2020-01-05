@@ -1,5 +1,6 @@
 import 'package:dogapp/service/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:dogapp/screen/main.dart';
 import 'package:dogapp/rout/rout.dart';
@@ -40,11 +41,17 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
+  final FirebaseMessaging _fcm = FirebaseMessaging();
 
+@override
+  void initState() {
+    // TODO: implement initState
 
-
+    super.initState();
+    _showDialog();
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -52,5 +59,66 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
     return user?.uid==null?Auth(): DogPages();
+  }
+  @override
+  void dispose(){
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+  _showDialog(){
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: ListTile(
+              title: Text(message['notification']['title']),
+              subtitle: Text(message['notification']['body']),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          ),
+        );
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: ListTile(
+              title: Text(message['notification']['title']),
+              subtitle: Text(message['notification']['body']),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          ),
+        );
+      },
+      onResume: (Map<String, dynamic> message) async {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: ListTile(
+              title: Text(message['notification']['title']),
+              subtitle: Text(message['notification']['body']),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
